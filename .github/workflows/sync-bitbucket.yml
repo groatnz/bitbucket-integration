@@ -26,6 +26,7 @@ jobs:
     - name: Run a multi-line script
       run: |
         echo Updating BitBucket from Github
+        cd $GITHUB_WORKSPACE
         git pull sync master  
         git push
         
