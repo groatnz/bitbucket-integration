@@ -1,0 +1,17 @@
+Github Tips
+If you need to clone another, private repo while executing your actions:
+
+ 
+
+1. create a "personal access token" (via your account settings, "Developer settings", "Personal access tokens").
+
+2. copy the created token, and add it as a secret to the repository in which the action is going to be executed with a name such as "ACCESS_TOKEN"
+
+3. add something like the following to your action.yml:
+
+ 
+
+- uses: actions/checkout@v1
+  with:
+    repository: my-private/repo-name
+    token: ${{ secrets.ACCESS_TOKEN }}
