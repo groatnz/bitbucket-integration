@@ -14,12 +14,13 @@ env:
   BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
   REPO: ${{ github.repository }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "syncbb"
   syncbb:
-    name: Synch $REPO from Github to Bitbucket
+    name: Synch from Github to Bitbucket
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -30,9 +31,10 @@ jobs:
       
       - name: sync with bitbucket
         run: |
-          echo github.repository is $GITHUB_REPO
+          echo "github.repository is $GITHUB_REPO"
+          echo "bb_repo is $BB_REPO"
           cd $GITHUB_WORKSPACE
-          git remote add sync https://"$BITBUCKET_CREDS"@bitbucket.org/$REPO.git
+          git remote add sync $BB_REPO
           git remote -v
           git push -u sync master
          
