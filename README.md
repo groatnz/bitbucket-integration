@@ -25,8 +25,13 @@ Note: Don't use import as this creates a new repo that is disconnected from the 
 Go to Bitbucket and create a new repository (its better to have an empty repo)
 then checkout and enter.
 
-    git clone https://groat_nz@bitbucket.org/groat_nz/enterprise-demo.git
+    git clone https://groat_nz:<password>@bitbucket.org/groat_nz/enterprise-demo.git
     # or git clone git@bitbucket.org:abc/myforkedrepo.git
+
+This requires the username and password (or ssh setup)
+    username: groat_nz
+    password: m...-atlassian.com
+place the password into a github secret
 
     Cloning into 'enterprise-demo'...
     Password for 'https://groat_nz@bitbucket.org': 
@@ -60,3 +65,10 @@ and then push back to Bitbucket
 
 
 # Now we make this a github action. 
+
+In the action we need to first pull the bitbucket repo
+we need access permission - username and password in a GitHub secret that 
+we can use int he action
+
+  with: # Set the secret as an input
+      super_secret: ${{ secrets.SuperSecret }}
