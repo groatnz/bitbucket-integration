@@ -27,7 +27,8 @@ jobs:
     steps:
       - name: pull the github repo
         uses: actions/checkout@v2
-
+      
+      - name: sync with bitbucket
         run: |
           echo github.repository is $GITHUB_REPO
           cd $GITHUB_WORKSPACE
