@@ -27,13 +27,15 @@ jobs:
         BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
       run: |
         git clone https://"$BITBUCKET_CREDS"@bitbucket.org/groat_nz/enterprise-demo.git $GITHUB_WORKSPACE
-
-    - name: Updating repo from Github
-      run: |
-        echo Updating BitBucket from Github
         cd $GITHUB_WORKSPACE
         ls
         git status
+        git remote show origin
+
+    - name: Updating repo from Github
+      run: |
+        echo Updating BitBucket from Github     
+        cd $GITHUB_WORKSPACE   
         git pull sync master  
         git push
         
