@@ -26,7 +26,8 @@ jobs:
       env:
         BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
       run: |
-        ls "$BITBUCKET_CREDS"
+        echo "$BITBUCKET_CREDS"
+        ls
         git clone https://"$BITBUCKET_CREDS"@bitbucket.org/groat_nz/enterprise-demo.git $GITHUB_WORKSPACE
         cd $GITHUB_WORKSPACE
         ls
