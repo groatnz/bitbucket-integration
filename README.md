@@ -63,6 +63,11 @@ and then push back to Bitbucket
 
     git push 
 
+# Version 2
+work in the github repo 
+
+## add the bb repo as a remote
+git remote add sync https://groat_nz:Mojo,00jimk-2019-github.com@bitbucket.org/groat-nz/enterprise-demo.git
 
 # Now we make this a github action. 
 
