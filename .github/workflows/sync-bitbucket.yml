@@ -35,6 +35,7 @@ jobs:
           echo "github.repository is $GITHUB_REPO"
           echo "bb_repo is $BB_REPO"
           cd $GITHUB_WORKSPACE
+          git fetch --prune --unshallow
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
           git remote add sync $BB_REPO2
