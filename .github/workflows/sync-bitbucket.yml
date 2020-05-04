@@ -1,4 +1,12 @@
-# synch changes to master here back to the bit bucket copy.
+# This action mirrors a github repo into a similar bitbucket one
+# requires the bb workspace/repo and the github org/repo to match
+# e.g.  groatnz/demo
+
+# Setup
+# 1 create git hub repo and add this file to the .github/workflows
+# 2 create an empty repo in bit bucket with the same name
+# commit a change to the github repo
+# it should be reflected into the bb repo. 
 
 name: Synch BitBucket
 
@@ -8,16 +16,6 @@ on:
   push:
 
 jobs:
-  testenv:
-    name: Test Env vars
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print env vars 
-        run: echo Hello world $FIRST_NAME $S1 $S2
-        env:
-          FIRST_NAME: Mona
-          S1: ${{ secrets.BITBUCKET_CREDS }}
-          S2: ${{ github.repository }}
 
   syncbb:
     name: Synch from Github to Bitbucket
