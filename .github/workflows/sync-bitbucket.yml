@@ -17,6 +17,21 @@ on:
 
 jobs:
 
+  comparecreds:
+    name: Compare Credentials
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        env:
+          BB_CREDS: "groat-nz:Mojo,00jimk-2019-atlassian.com"
+          CC_CREDS: ${{ secrets.BITBUCKET_CREDS }}
+        run: |
+          if [ $BB_CREDS = "$VAR2" ]; then
+            echo $BB_CREDS is same as $CC_CREDS
+          else
+            echo $BB_CREDS is not the same as $CC_CREDS
+          fi
+         
   syncbb:
     name: Synch from Github to Bitbucket
     runs-on: ubuntu-latest
