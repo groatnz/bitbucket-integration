@@ -17,13 +17,10 @@ jobs:
       
       - name: sync with bitbucket
         env:
-          BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
-          BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/${{ github.repository }}.git
+          BB_REPO2: https://${{ secrets.BITBUCKET_CREDS }}@bitbucket.org/${{ github.repository }}.git
 
         run: |
-          echo "github.repository is $GITHUB_REPO"
           echo "bb_repo is $BB_REPO2"
           cd $GITHUB_WORKSPACE
           git fetch --prune --unshallow
