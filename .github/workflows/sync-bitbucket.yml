@@ -26,7 +26,7 @@ jobs:
           BB_CREDS: "groat-nz:Mojo,00jimk-2019-atlassian.com"
           CC_CREDS: ${{ secrets.BITBUCKET_CREDS }}
         run: |
-          if [ $BB_CREDS = "$VAR2" ]; then
+          if [ $BB_CREDS = $CC_CREDS ]; then
             echo $BB_CREDS is same as $CC_CREDS
           else
             echo $BB_CREDS is not the same as $CC_CREDS
@@ -47,7 +47,6 @@ jobs:
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
           git remote add sync https://$BB_CREDS@bitbucket.org/${{ github.repository }}.git
-          # git pull sync master --allow-unrelated-histories
           git push --force --set-upstream -v --all sync
          
      
