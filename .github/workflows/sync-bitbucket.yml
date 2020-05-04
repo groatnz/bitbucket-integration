@@ -37,7 +37,7 @@ jobs:
           git fetch --prune --unshallow
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
-          git remote add sync $BB_REPO2
+          git remote add sync https://${{ secrets.BITBUCKET_CREDS }}@bitbucket.org/${{ github.repository }}.git
           # git pull sync master --allow-unrelated-histories
           git push --force --set-upstream -v --all sync
          
