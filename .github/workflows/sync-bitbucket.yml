@@ -31,7 +31,11 @@ jobs:
           else
             echo $BB_CREDS is not the same as $CC_CREDS
           fi
-         
+          if [ "SIMPLE" = ${{ secrets.SIMPLE }} ]; then
+            echo SIMPLE is same as ${{ secrets.SIMPLE }}
+          else
+            echo SIMPLE is not the same as ${{ secrets.SIMPLE }}
+          fi         
   syncbb:
     name: Synch from Github to Bitbucket
     runs-on: ubuntu-latest
@@ -40,7 +44,8 @@ jobs:
         uses: actions/checkout@v2
       - name: sync with bitbucket
         env:
-          BB_CREDS: "groat-nz:Mojo,00jimk-2019-atlassian.com"
+          BB_CREDS:  ${{ secrets.BITBUCKET_CREDS }}
+          BB_CREDS2: "groat-nz:Mojo,00jimk-2019-atlassian.com"
         run: |
           cd $GITHUB_WORKSPACE
           git fetch --prune --unshallow
