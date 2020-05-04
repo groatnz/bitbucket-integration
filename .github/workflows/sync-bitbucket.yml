@@ -7,13 +7,6 @@ name: Synch BitBucket
 on:
   push:
 
-env:
-  BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
-  REPO: ${{ github.repository }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
-  BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/$REPO.git
-
 jobs:
   syncbb:
     name: Synch from Github to Bitbucket
@@ -25,20 +18,18 @@ jobs:
       - name: sync with bitbucket
         env:
           BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
-          REPO: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
           BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/${{ github.repository }}.git
 
         run: |
           echo "github.repository is $GITHUB_REPO"
-          echo "bb_repo is $BB_REPO"
+          echo "bb_repo is $BB_REPO2"
           cd $GITHUB_WORKSPACE
           git fetch --prune --unshallow
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
           git remote add sync $BB_REPO2
-          git remote -v
           # git pull sync master --allow-unrelated-histories
           git push --force --set-upstream -v --all sync
          
