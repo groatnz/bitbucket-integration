@@ -12,7 +12,7 @@ env:
   REPO: ${{ github.repository }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
-  BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/groat_nz/enterprise-demo.git
+  BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/$REPO.git
 
 jobs:
   syncbb:
