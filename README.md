@@ -1,79 +1,26 @@
-# Sync GitHub Repo with BitBucket
+# Synchronising a GitHub Repository into Bitbucket.
 
-This project demonstrates maintaining code in Github and having it automatically update into BitBucket
-The copy in BB is a Fork that pulls from upstream and updates on a github action when the upstream changes
+This project demonstrates maintaining code in Github and having it automatically update into BitBucket. This is entirely driven from the GitHub end and only requires a github action and a secret containing the target repo and access credentials. 
 
-Clone and Sync between private accounts on bitbucket and GitHub.
+This will work for public and private repositories. For private repos you will need to modify the Github secret BITBUCKET_SYNC_URL to include the bitbucket access credentials. Or modify the action so that it has SSH access to BB. 
 
-Example test
-- Organization on Github - groat-nz
-- Repository groat-nz/enterprise-demo
+This is a one way synch. If you modify the BB version either the action will fail due to conflicts or the next update will replace your changes.  Hence you should configure the Bitbucket repo to be read only except for the Github account doing the updates. 
 
-This is a Private Repository - only owner has access
+The action script syncs all branches on push.  You might want to modify the script to only synch on push to master. 
 
-1. Connect accounts in BB to Github. 
+## Steps for an existing Github repository
 
-Setup BitBucket so that it has access to the Github repository - inc private ones.
-
-See: Personal Settings | Connected Accounts.
-click connect to Github,  authorise BB to access the GH repostory.
-
-## Fork the github repo into BB.
-
-Note: Don't use import as this creates a new repo that is disconnected from the orginal
-
-Go to Bitbucket and create a new repository (its better to have an empty repo)
-then checkout and enter.
-
-    git clone https://groat_nz:<password>@bitbucket.org/groat_nz/enterprise-demo.git
-    # or git clone git@bitbucket.org:abc/myforkedrepo.git
-
-This requires the username and password (or ssh setup)
-    username: groat_nz
-    password: m...-atlassian.com
-place the password into a github secret
-
-    Cloning into 'enterprise-demo'...
-    Password for 'https://groat_nz@bitbucket.org': 
-    warning: You appear to have cloned an empty repository.
-
-    cd enterprise-demo
-
-Now add Github repo as a new remote in Bitbucket called "sync"
-    git remote add sync https://github.com/groat-nz/enterprise-demo.git
-
-Verify what are the remotes currently being setup. This following command should show "fetch" and "push" for two remotes i.e. "origin" and "sync"
-    git remote -v
-
-Now do a pull from the "master" branch in the "sync" remote 
-    git pull sync master
-
-Setup a local branch called "github" track the "sync" remote's "master" branch
-    git branch --track github sync/master
-
-Now push the local "master" branch to the "origin" remote in Bitbucket.
-    git push -u origin master
-    
-To pull changes from the original :
-
-    git pull sync master  --allow-unrelated-histories
+1. Checkout the repo, create a .github/workflows folder and copy the sync-bitbucket.yml file there.
+2. On Bitbucket create a new empty repository in the project and workspace you want to use. You should name the repo the same as on github but its not absolutely necessary. Get the URL for the new repo. e.g. `https://<username>:<password>@bitbucket.org/pfr/example-repo.git`. If the repo is public you will not require the username and password.
+3. For private repos, on Github in the Settings tab, add a secret with name BITBUCKET_SYNC_URL and value being the URL. This is used to set the sync remote for the checkout to the bitbucket repo. 
+    `git remote add sync ${{ secrets.BITBUCKET_SYNC_URL }}` 
+1. For public repos - you can do the same or use a literal string in the action.
+    `git remote add sync https://bitbucket.org/pfr/example-repo.git`
+2. Commit the changes. The action will run and the results will show in the actions tab on the repository. 
+3. Verify the Bitbucket repo - it should now contain a full copy of the github repo including history and branches. 
+4. Now any time you push to github the bitbucket repo will also be updated. 
 
 
-and then push back to Bitbucket
 
-    git push 
 
-# Version 2
-work in the github repo 
 
-## add the bb repo as a remote
-git remote add sync https://groat_nz:Mojo,00jimk-2019-github.com@bitbucket.org/groat-nz/enterprise-demo.git
-
-# Now we make this a github action. 
-
-In the action we need to first pull the bitbucket repo
-we need access permission - username and password in a GitHub secret that 
-we can use int he action
-
-  with: # Set the secret as an input
-      super_secret: ${{ secrets.SuperSecret }}
