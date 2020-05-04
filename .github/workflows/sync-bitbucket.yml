@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print env vars 
-        run: echo Hello world $FIRST_NAME <$S1>, <$S2>
+        run: echo Hello world $FIRST_NAME $S1 $S2
         env:
           FIRST_NAME: Mona
           S1: ${{ secrets.BITBUCKET_CREDS }}
