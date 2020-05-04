@@ -16,26 +16,7 @@ on:
   push:
 
 jobs:
-
-  comparecreds:
-    name: Compare Credentials
-    runs-on: ubuntu-latest
-    steps:
-      - name: test
-        env:
-          BB_CREDS: "groat-nz:Mojo,00jimk-2019-atlassian.com"
-          CC_CREDS: ${{ secrets.BITBUCKET_CREDS }}
-        run: |
-          if [ $BB_CREDS = $CC_CREDS ]; then
-            echo $BB_CREDS is same as $CC_CREDS
-          else
-            echo $BB_CREDS is not the same as $CC_CREDS
-          fi
-          if [ "SIMPLE" = ${{ secrets.SIMPLE }} ]; then
-            echo SIMPLE is same as ${{ secrets.SIMPLE }}
-          else
-            echo SIMPLE is not the same as ${{ secrets.SIMPLE }}
-          fi         
+   
   syncbb:
     name: Synch from Github to Bitbucket
     runs-on: ubuntu-latest
@@ -45,13 +26,12 @@ jobs:
       - name: sync with bitbucket
         env:
           BB_CREDS:  ${{ secrets.BITBUCKET_CREDS }}
-          BB_CREDS2: "groat-nz:Mojo,00jimk-2019-atlassian.com"
         run: |
           cd $GITHUB_WORKSPACE
           git fetch --prune --unshallow
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
-          git remote add sync https://$BB_CREDS@bitbucket.org/${{ github.repository }}.git
+          git remote add sync https://${{ secrets.BITBUCKET_CREDS }}@bitbucket.org/${{ github.repository }}.git
           git push --force --set-upstream -v --all sync
          
      
