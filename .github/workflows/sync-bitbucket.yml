@@ -10,6 +10,9 @@ on:
 env:
   BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
   REPO: ${{ github.repository }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
+  BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/groat_nz/enterprise-demo.git
 
 jobs:
   syncbb:
@@ -27,7 +30,7 @@ jobs:
           git fetch --prune --unshallow
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
-          git remote add sync https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
+          git remote add sync $BB_REPO2
           git remote -v
           # git pull sync master --allow-unrelated-histories
           git push --force --set-upstream -v --all sync
