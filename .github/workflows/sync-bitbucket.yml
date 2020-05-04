@@ -6,40 +6,28 @@ name: Synch BitBucket
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
-env:
-  BITBUCKET_CREDS: ${{ secrets.BITBUCKET_CREDS }}
-  REPO: ${{ github.repository }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
-  BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/groat_nz/enterprise-demo.git
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "syncbb"
+
   syncbb:
     name: Synch from Github to Bitbucket
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: pull the github repo
         uses: actions/checkout@v2
       
       - name: sync with bitbucket
+        env:
+          BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
+          BB_REPO2: https://${{ secrets.BITBUCKET_CREDS }}@bitbucket.org/${{ github.repository }}.git
+
         run: |
-          echo "github.repository is $GITHUB_REPO"
-          echo "bb_repo is $BB_REPO"
+          echo "bb_repo is $BB_REPO2"
           cd $GITHUB_WORKSPACE
           git fetch --prune --unshallow
           git config user.email andrew@groat.nz
           git config user.name "Andrew Watkins"
-          git remote add sync $BB_REPO2
-          git remote -v
+          git remote add sync https://@bitbucket.org/${{ github.repository }}.git
           # git pull sync master --allow-unrelated-histories
           git push --force --set-upstream -v --all sync
          
