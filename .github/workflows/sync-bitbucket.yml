@@ -40,6 +40,6 @@ jobs:
           git remote add sync $BB_REPO2
           git remote -v
           # git pull sync master --allow-unrelated-histories
-          git push -u sync master
+          git push --force --set-upstream -v --all sync
          
      
