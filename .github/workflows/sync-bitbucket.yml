@@ -15,6 +15,7 @@ env:
   REPO: ${{ github.repository }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   BB_REPO: https://$BITBUCKET_CREDS@bitbucket.org/$REPO.git
+  BB_REPO2: https://groat_nz:Mojo,00jimk-2019-atlassian.com@bitbucket.org/groat_nz/enterprise-demo.git
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,8 +35,11 @@ jobs:
           echo "github.repository is $GITHUB_REPO"
           echo "bb_repo is $BB_REPO"
           cd $GITHUB_WORKSPACE
-          git remote add sync $BB_REPO
+          git config user.email andrew@groat.nz
+          git config user.name "Andrew Watkins"
+          git remote add sync $BB_REPO2
           git remote -v
+          git pull sync master --allow-unrelated-histories
           git push -u sync master
          
      
