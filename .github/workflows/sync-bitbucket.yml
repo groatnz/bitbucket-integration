@@ -29,8 +29,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           git fetch --prune --unshallow
-          # git config user.email andrew@groat.nz
-          git config user.name "Github to Bitbucket Sync"
+          # git config user.email andrew@groat.nz 
+          # git config user.name "Github to Bitbucket Sync"
           git remote add sync ${{ secrets.BITBUCKET_SYNC_URL }}
           git push --force --set-upstream -v --all sync
          
