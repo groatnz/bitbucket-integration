@@ -33,7 +33,12 @@ jobs:
           key: ${{ secrets.BITBUCKET_SSH_KEY }}
           name: id_rsa # optional
           known_hosts: ${{ secrets.BITBUCKET_KNOWN_HOSTS }}
-          # config: ${{ secrets.CONFIG }} # ssh_config; optional
+          config: 
+            Host bitbucket.org
+              User git
+              IdentityFile ~/.ssh/id_rsa
+              IdentitiesOnly yes 
+              
       - name: sync with bitbucket
         run: |
           cd $GITHUB_WORKSPACE
