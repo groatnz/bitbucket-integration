@@ -16,6 +16,8 @@ name: Synch BitBucket
 # events but only for the master branch
 on:
   push:
+#    branches: [ master ]
+# uncomment to enable trigger only on push to specific branches e.g. master
 
 jobs:
    
@@ -28,10 +30,11 @@ jobs:
       - name: sync with bitbucket
         run: |
           cd $GITHUB_WORKSPACE
-          git fetch --prune --unshallow
-          # git config user.email andrew@groat.nz 
-          # git config user.name "Github to Bitbucket Sync"
+          # update the whole repo including tags/branches but prune out deleted items
+          git fetch --prune --unshallow 
+          # make the bb repo a remote called sync
           git remote add sync ${{ secrets.BITBUCKET_SYNC_URL }}
+          # force push the sync remote with all changes.
           git push --force --set-upstream -v --all sync
          
      
