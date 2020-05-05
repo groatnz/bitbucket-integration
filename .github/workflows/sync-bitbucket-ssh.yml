@@ -10,7 +10,7 @@
 # commit a change to the github repo
 # it should be reflected into the bb repo. 
 
-name: Synch BitBucket
+name: Synch BitBucket SSH
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -22,7 +22,7 @@ on:
 jobs:
    
   syncbb:
-    name: Synch from Github to Bitbucket
+    name: Synch from Github to Bitbucket using SSH
     runs-on: ubuntu-latest
     steps:
       - name: pull the github repo
