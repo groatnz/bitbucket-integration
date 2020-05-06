@@ -1,40 +1,40 @@
-# # This action mirrors a github repo into a similar bitbucket one
-# # requires the bb workspace/repo and the github org/repo to match
-# # e.g.  groatnz/demo
+# This action mirrors a github repo into a similar bitbucket one
+# requires the bb workspace/repo and the github org/repo to match
+# e.g.  groatnz/demo
 
-# # Setup for an existing repo
-# # 1 create an empty repo in bit bucket with the same name, no readme or anything
-# # 2 create a URL that includes everything required to push to the new repo
-# #  e.g. https://{username:password}@bitbucket.org/{workspace}/{repository}
-# # 3 create a secret in the github repository called BITBUCKET_SYNC_URL with the bb url
-# # commit a change to the github repo
-# # it should be reflected into the bb repo. 
+# Setup for an existing repo
+# 1 create an empty repo in bit bucket with the same name, no readme or anything
+# 2 create a URL that includes everything required to push to the new repo
+#  e.g. https://{username:password}@bitbucket.org/{workspace}/{repository}
+# 3 create a secret in the github repository called BITBUCKET_SYNC_URL with the bb url
+# commit a change to the github repo
+# it should be reflected into the bb repo. 
 
-# name: Synch BitBucket
+name: Synch BitBucket via HTTPS
 
-# # Controls when the action will run. Triggers the workflow on push or pull request
-# # events but only for the master branch
-# on:
-#   push:
-# #    branches: [ master ]
-# # uncomment to enable trigger only on push to specific branches e.g. master
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+#    branches: [ master ]
+# uncomment to enable trigger only on push to specific branches e.g. master
 
-# jobs:
+jobs:
    
-#   syncbb:
-#     name: Synch from Github to Bitbucket
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: pull the github repo
-#         uses: actions/checkout@v2
-#       - name: sync with bitbucket
-#         run: |
-#           cd $GITHUB_WORKSPACE
-#           # update the whole repo including tags/branches but prune out deleted items
-#           git fetch --prune --unshallow 
-#           # make the bb repo a remote called sync
-#           git remote add sync ${{ secrets.BITBUCKET_SYNC_URL }}
-#           # force push the sync remote with all changes.
-#           git push --force --set-upstream -v --all sync
+  syncbb:
+    name: Synch from Github to Bitbucket https
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull the github repo
+        uses: actions/checkout@v2
+      - name: sync with bitbucket
+        run: |
+          cd $GITHUB_WORKSPACE
+          # update the whole repo including tags/branches but prune out deleted items
+          git fetch --prune --unshallow 
+          # make the bb repo a remote called sync
+          git remote add sync ${{ secrets.BITBUCKET_SYNC_URL }}
+          # force push the sync remote with all changes.
+          git push --force --set-upstream -v --all sync
          
      

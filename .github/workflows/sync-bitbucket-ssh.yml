@@ -10,7 +10,7 @@
 # commit a change to the github repo
 # it should be reflected into the bb repo. 
 
-name: Synch BitBucket SSH
+name: Synch BitBucket via SSH
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -19,7 +19,7 @@ on:
 #    branches: [ master ]
 # uncomment to enable trigger only on push to specific branches e.g. master
 env:
-  BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration.git
+  BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration-2.git
 # set the BB_REPO variable to the destination target repository
 
 jobs:
