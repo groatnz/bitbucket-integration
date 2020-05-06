@@ -19,8 +19,8 @@ on:
 #    branches: [ master ]
 # uncomment to enable trigger only on push to specific branches e.g. master
 env:
-  # BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration-2.git
-  BB_REPO: git@bitbucket.org:andrewtesting/bbsync.git
+  BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration.git
+  # BB_REPO: git@bitbucket.org:andrewtesting/bbsync.git
 # set the BB_REPO variable to the destination target repository
 
 jobs:

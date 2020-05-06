@@ -25,13 +25,16 @@ The action script syncs all branches on push.  You might want to modify the scri
 ### create an SSH keypair and add to Bitbucket
 https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-ssh2
 
+You do not want to use your home .ssh/id_rsa default key pair for this - the private key is going to be placed in a github secret, if you need to change the pair you don't want to break other keys you use.  Also you may want to copy the repo to different targets. I suggest creating a key named for the target repo owner. 
+
+
 To create a key with a name or path other than the default, specify the full path to the key. For example, to create a key called my-new-ssh-key, enter a path like the one shown at the prompt:
 
     Warning - the ssh library in the action requires an SSH private key in PEM format that starts with -----BEGIN RSA PRIVATE KEY-----. 
 
 
 ````
-$ ssh-keygen -t rsa
+$ ssh-keygen -t rsa -f 
 Generating public/private rsa key pair.
 Enter file in which to save the key (/Users/emmap1/.ssh/id_rsa): keyname
 ````
