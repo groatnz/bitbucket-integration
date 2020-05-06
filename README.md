@@ -27,8 +27,11 @@ https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#Setu
 
 To create a key with a name or path other than the default, specify the full path to the key. For example, to create a key called my-new-ssh-key, enter a path like the one shown at the prompt:
 
+    Warning - the ssh library in the action requires an SSH private key in PEM format that starts with -----BEGIN RSA PRIVATE KEY-----. 
+
+
 ````
-$ ssh-keygen
+$ ssh-keygen -t rsa
 Generating public/private rsa key pair.
 Enter file in which to save the key (/Users/emmap1/.ssh/id_rsa): keyname
 ````
@@ -57,7 +60,6 @@ On Github place the private key into a repo secret.
 e.g at `https://github.com/pfrtest/bitbucket-integration/settings/secrets/new`
 
 Add a new secret `BITBUCKET_SSH_KEY` with the private key
-
 
 #### create a known hosts entry for bitbucket
 Set known_hosts option correctly (use ssh-keyscan command).
