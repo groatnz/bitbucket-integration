@@ -78,6 +78,8 @@ Create a special account on BB that is the GitHub user. This account has one ssh
 - a problem with this is that with a little editing we can craft a GH repo that can read all the repos on BB including those that should be private to other groups. 
 - which implies we should not have a super account that can access all BB repositories. 
 
+This has been made simpler as Github now allows Org level secrets. 
+
 
 ### Everyone gets a key
 The link between the GH and BB private repositories must be connected by some shared secret that belongs to the owner of the repository and is different for each repository. That is either the username/password of the owner, or an SSH key generated for the owner - but is different for each repo. 
