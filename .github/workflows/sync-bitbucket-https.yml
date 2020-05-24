@@ -10,46 +10,32 @@
 # commit a change to the github repo
 # it should be reflected into the bb repo. 
 
-name: Synch BitBucket via SSH
+name: Synch BitBucket via HTTPS
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
+    branches-ignore:  
+      - '**'  # this effectively disables this workflow - never runs
 #    branches: [ master ]
 # uncomment to enable trigger only on push to specific branches e.g. master
-env:
-  BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration.git
-  # BB_REPO: git@bitbucket.org:andrewtesting/bbsync.git
-# set the BB_REPO variable to the destination target repository
 
 jobs:
    
   syncbb:
-    name: Synch from Github to Bitbucket using SSH
+    name: Synch from Github to Bitbucket https
     runs-on: ubuntu-latest
     steps:
       - name: pull the github repo
         uses: actions/checkout@v2
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.BITBUCKET_SSH_KEY }}
-          name: id_rsa # optional
-          known_hosts: ${{ secrets.BITBUCKET_KNOWN_HOSTS }}
-          config: 
-            Host bitbucket.org
-              User git
-              IdentityFile ~/.ssh/id_rsa
-              IdentitiesOnly yes 
-
       - name: sync with bitbucket
         run: |
           cd $GITHUB_WORKSPACE
           # update the whole repo including tags/branches but prune out deleted items
           git fetch --prune --unshallow 
           # make the bb repo a remote called sync
-          git remote add sync $BB_REPO
+          git remote add sync ${{ secrets.BITBUCKET_SYNC_URL }}
           # force push the sync remote with all changes.
           git push --force --set-upstream -v --all sync
          
