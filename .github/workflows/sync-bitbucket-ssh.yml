@@ -34,7 +34,7 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.BITBUCKET_SSH_KEY }}
+          key: ${{ secrets.GROATNZ_SSH_PRIVATE_KEY }}
           name: id_rsa # optional
           known_hosts: ${{ secrets.BITBUCKET_KNOWN_HOSTS }}
           config: 
