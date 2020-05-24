@@ -14,8 +14,10 @@ name: Synch BitBucket via HTTPS
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-# on:
-#   push:
+on:
+  push:
+    branches-ignore:  
+      - '**'  # this effectively disables this workflow - never runs
 #    branches: [ master ]
 # uncomment to enable trigger only on push to specific branches e.g. master
 
