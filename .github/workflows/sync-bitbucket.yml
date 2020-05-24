@@ -24,7 +24,7 @@ on:
 # uncomment to enable trigger only on push to specific branches e.g. master
 env:
   # BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration.git
-  BB_REPO: git@bitbucket.org:$GITHUB_REPOSITORY
+  BB_REPO: git@bitbucket.org:${{ github.repository }} 
 # set the BB_REPO variable to the destination target repository
 
 jobs:
