@@ -8,11 +8,6 @@
 
 # Setup for an existing repo
 # 1 create an empty repo in bit bucket with the same name, no readme or anything
-# 2 create a URL that includes everything required to push to the new repo
-#  e.g. https://{username:password}@bitbucket.org/{workspace}/{repository}
-# 3 create a secret in the github repository called BITBUCKET_SYNC_URL with the bb url
-# commit a change to the github repo
-# it should be reflected into the bb repo. 
 
 name: Synch BitBucket via SSH
 
@@ -22,13 +17,12 @@ on:
   push:
 #    branches: [ master ]
 # uncomment to enable trigger only on push to specific branches e.g. master
+
+# set the BB_REPO variable to the destination bitbucket workspace name
 env:
-  # BB_REPO: git@bitbucket.org:groatnz/bitbucket-integration.git
-  BB_REPO: git@bitbucket.org:${{ github.repository }} 
-# set the BB_REPO variable to the destination target repository
+  BB_ROOT: git@bitbucket.org:plantandfood
 
 jobs:
-   
   syncbb:
     name: Synch from Github to Bitbucket using SSH
     runs-on: ubuntu-latest
@@ -47,13 +41,15 @@ jobs:
               IdentityFile ~/.ssh/id_rsa
               IdentitiesOnly yes 
 
+      - uses: franzdiebold/github-env-vars-action@v1.0.0
       - name: sync with bitbucket
         run: |
           cd $GITHUB_WORKSPACE
           # update the whole repo including tags/branches but prune out deleted items
+          echo synch with $BB_ROOT/$GITHUB_REPOSITORY_NAME
           git fetch --prune --unshallow 
           # make the bb repo a remote called sync
-          git remote add sync $BB_REPO
+          git remote add sync $BB_ROOT/$GITHUB_REPOSITORY_NAME
           # force push the sync remote with all changes.
           git push --force --set-upstream -v --all sync
          

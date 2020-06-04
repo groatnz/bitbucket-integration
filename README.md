@@ -22,14 +22,12 @@ To create a key with a name or path other than the default, specify the full pat
 
 
 ````
-$ ssh-keygen -t rsa -f 
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/emmap1/.ssh/id_rsa): keyname
+$ ssh-keygen -P "" -t rsa -b 4096 -m pem -f pfrnz
 ````
 
 This generates two files
-keyname - containing the private key
-keyname.pub - containg the public key
+pfrnz - containing the private key
+pfrnz.pub - containg the public key
 
 ### Add the _public_ key to Bitbucket.
 On Bitbucket you can add the ssh key at the workspace, project or repo level. 
@@ -58,7 +56,7 @@ Set known_hosts option correctly (use ssh-keyscan command).
 
 capture the output which will look like 
 ````
-bitbucket.org,18.205.93.0 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcafrgMeLzaFPsw2kNvEcqTKl/VqLat/MaB33pZy0y3rJZtnqwR2qOOvbwKZYKiEO1O6VqNEBxKvJJelCq0dTXWT5pbO2gDXC6h6QDXCaHo6pOHGPUy+YBaGQRGuSusMEASYiWunYN0vCAI8QaXnWMXNMdFP3jHAJH0eDsoiGnLPBlBp4TNm6rYI74nMzgz3B9IikW4WVK+dc8KZJZWYjAuORU3jc1c/NPskD2ASinf8v3xnfXeukU0sJ5N6m5E8VLjObPEO+mN2t/FZTMZLiFqPWc/ALSqnMnnhwrNi2rbfg/rd/IpL8Le3pSBne8+seeFVBoGqzHM9yXw==
+bitbucket.org ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcafrgMeLzaFPsw2kNvEcqTKl/VqLat/MaB33pZy0y3rJZtnqwR2qOOvbwKZYKiEO1O6VqNEBxKvJJelCq0dTXWT5pbO2gDXC6h6QDXCaHo6pOHGPUy+YBaGQRGuSusMEASYiWunYN0vCAI8QaXnWMXNMdFP3jHAJH0eDsoiGnLPBlBp4TNm6rYI74nMzgz3B9IikW4WVK+dc8KZJZWYjAuORU3jc1c/NPskD2ASinf8v3xnfXeukU0sJ5N6m5E8VLjObPEO+mN2t/FZTMZLiFqPWc/ALSqnMnnhwrNi2rbfg/rd/IpL8Le3pSBne8+seeFVBoGqzHM9yXw==
 ````
 
 Add a new secret `BITBUCKET_KNOWN_HOSTS` with this value.
