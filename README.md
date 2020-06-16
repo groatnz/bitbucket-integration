@@ -52,7 +52,7 @@ Add a new secret `BITBUCKET_SSH_KEY` with the private key
 
 #### create a known hosts entry for bitbucket
 Set known_hosts option correctly (use ssh-keyscan command).
-`ssh-keyscan -f groatnz bitbucket.org`
+`ssh-keyscan -f pfrnz bitbucket.org`
 
 capture the output which will look like 
 ````
